@@ -1,6 +1,6 @@
 export type RootTabParamList = {
-  Home: undefined;
-  Details: {
+  Search: undefined;
+  Favorites: {
     userId: string
   };
   SignIn: undefined;

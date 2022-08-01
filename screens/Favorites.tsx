@@ -2,9 +2,9 @@ import { Button, Text, View } from "react-native";
 import { RootTabParamList } from "./RootTabParams";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
-type DetailsScreenProps = BottomTabScreenProps<RootTabParamList, 'Details'>
+type DetailsScreenProps = BottomTabScreenProps<RootTabParamList, 'Favorites'>
 
-function DetailsScreen({route, navigation}: DetailsScreenProps) {
+function Favorites({route, navigation}: DetailsScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
@@ -16,4 +16,4 @@ function DetailsScreen({route, navigation}: DetailsScreenProps) {
   );
 }
 
-export default DetailsScreen;
+export default Favorites;

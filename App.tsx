@@ -3,39 +3,38 @@ import { BottomTabNavigationOptions, BottomTabScreenProps, createBottomTabNaviga
 
 import * as SecureStore from 'expo-secure-store';
 
-import FeatherIcons from "@expo/vector-icons/Feather";
-
 import { RootTabParamList } from "./screens/RootTabParams";
-import HomeScreen from './screens/Home';
-import DetailsScreen from './screens/Details';
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import Profile from "./screens/Profile";
 import SignIn from "./screens/SignIn";
 import AuthContext, { AuthContextInterface } from "./features/auth/authContext";
 import authReducer from "./features/auth/reducer";
 import { AuthActionKind } from "./features/auth/actions";
-
-type FeatherIconName = React.ComponentProps<typeof FeatherIcons>['name'];
+import Search from "./screens/Search";
+import Favorites from "./screens/Favorites";
+import { FeatherIconName } from "./types";
+import FeatherIcon from "./components/FeatherIcon";
 
 const RootBottomTab = createBottomTabNavigator<RootTabParamList>();
 
 const NavigatorScreenOptions = ({route}: BottomTabScreenProps<RootTabParamList>): BottomTabNavigationOptions => ({
   tabBarIcon: ({color, size}) => {
     let iconName: FeatherIconName = 'home';
-    if (route.name === 'Home') {
-      iconName = 'home'
-    } else if (route.name === 'Details') {
-      iconName = 'shopping-bag'
+    if (route.name === 'Search') {
+      iconName = 'search'
+    } else if (route.name === 'Favorites') {
+      iconName = 'heart'
     } else if (route.name === 'SignIn') {
       iconName = 'log-in'
     } else if (route.name === 'Profile') {
       iconName = 'user'
     }
 
-    return <FeatherIcons name={iconName} size={size} color={color}/>
+    return <FeatherIcon name={iconName} size={size} color={color}/>
   },
   tabBarActiveTintColor: 'tomato',
-  tabBarInactiveTintColor: 'gray'
+  tabBarInactiveTintColor: 'gray',
+  headerShown: false
 });
 
 const initialState = {
@@ -94,10 +93,11 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <RootBottomTab.Navigator initialRouteName="Home" screenOptions={NavigatorScreenOptions}>
+        <RootBottomTab.Navigator initialRouteName="Search" screenOptions={NavigatorScreenOptions}>
           {/* CommonScreen */}
-          <RootBottomTab.Screen name="Home" component={HomeScreen} />
-          <RootBottomTab.Screen name="Details" component={DetailsScreen} />
+          <RootBottomTab.Screen name="Search" component={Search} />
+          <RootBottomTab.Screen name="Favorites" component={Favorites} />
+          {/* AuthScreens */}
           {state.userToken ? (
             <RootBottomTab.Group>
               <RootBottomTab.Screen name="Profile" component={Profile} />
