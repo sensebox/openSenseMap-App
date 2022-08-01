@@ -3,4 +3,6 @@ export type RootTabParamList = {
   Details: {
     userId: string
   };
+  SignIn: undefined;
+  Profile: undefined;
 }
